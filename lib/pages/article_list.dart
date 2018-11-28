@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import 'article_detail.dart';
+import '../utils/article_utils.dart';
 
 Dio dio = Dio();
-const String defaultCoverUrl = 'https://vecchio.top/images/cover/wallhaven-851_1537242430407.jpg';
 
 class ArticleListPage extends StatelessWidget {
   @override
@@ -43,7 +43,7 @@ class ArticleListState extends State {
         if (i < articleList.length) {
           final articleInfo = articleList[i];
           final coverUrl = articleInfo['cover'];
-          final articleCover = coverUrl != null ? ('https://vecchio.top${coverUrl}') : defaultCoverUrl;
+          final articleCover = ArticleUtils.getCoverUrl(coverUrl);
           return Card(
             child: Column(
               children: <Widget>[
