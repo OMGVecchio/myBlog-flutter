@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/article_list.dart';
-// import 'pages/article_detail.dart';
+import 'pages/curriculum_vitae.dart';
 
 void main() => runApp(new MyApp());
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       ),
       home: ArticleListPage(),
       routes: <String, WidgetBuilder> {
-        // '/article': (BuildContext ctx) => ArticleDetailPage(),
+        '/cv': (BuildContext ctx) => CurriculumVitae()
       },
     );
   }

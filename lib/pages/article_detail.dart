@@ -29,8 +29,8 @@ class ArticleDetailState extends State {
     this._fetchArticleDetail();
   }
   void _fetchArticleDetail() async {
-    Response res = await dio.get('https://vecchio.top/api/article/${this.articleId}');
-    // Response res = await dio.get('https://vecchio.top/api/article/f24be360-9bac-11e8-af01-d933a8a0c468');
+    Response res = await dio.get('${ArticleUtils.host}/api/article/${this.articleId}');
+    // Response res = await dio.get('${ArticleUtils.host}/api/article/f24be360-9bac-11e8-af01-d933a8a0c468');
     setState(() {
       articleDetail = res.data['data'];
     });

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import 'article_detail.dart';
+import '../components/bottom_nav.dart';
 import '../utils/article_utils.dart';
 
 Dio dio = Dio();
@@ -13,6 +14,7 @@ class ArticleListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('文章列表'),
       ),
+      bottomNavigationBar: SelfBottomNav(index: 0),
       body: ArticleList(),
     );
   }
@@ -29,7 +31,7 @@ class ArticleListState extends State {
     this._fetchArticleList();
   }
   void _fetchArticleList() async {
-    Response res = await dio.get('https://vecchio.top/api/article');
+    Response res = await dio.get('${ArticleUtils.host}/api/article');
     setState(() {
       articleList.addAll(res.data['data']);  
     });
