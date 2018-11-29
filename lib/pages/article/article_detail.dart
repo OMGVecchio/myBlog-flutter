@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 // import 'package:flutter_markdown/flutter_markdown.dart';
 
-import '../utils/article_utils.dart';
+import '../../utils/article_utils.dart';
 
 Dio dio = Dio();
 

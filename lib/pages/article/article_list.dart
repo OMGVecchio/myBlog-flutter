@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import 'article_detail.dart';
-import '../utils/article_utils.dart';
+import '../../utils/article_utils.dart';
 
 Dio dio = Dio();
 
@@ -42,7 +42,11 @@ class ArticleListState extends State {
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (tag) {
-              setState(() {
+              if (tag == 'all-unique') {
+                setState(() {
+                  realArticleList = articleList;
+                });  
+              } else {
                 var newArticleList = [];
                 articleList.forEach((article) {
                   var tags = article['tags'];
@@ -53,16 +57,23 @@ class ArticleListState extends State {
                 setState(() {
                   realArticleList = newArticleList;
                 });
-              });
+              }
             },
             itemBuilder: (context) {
-              return articleTags.map((tag) {
+              var tagItemList = [
+                PopupMenuItem(
+                  value: 'all-unique',
+                  child: Text('全部'),
+                )
+              ];
+              tagItemList.addAll(articleTags.map((tag) {
                 return PopupMenuItem(
                   // value 是 onSelected 里选中的值
                   value: tag,
                   child: Text(tag),
                 );
-              }).toList();
+              }));
+              return tagItemList;
             },
           ),
         ],
@@ -75,29 +86,35 @@ class ArticleListState extends State {
             final articleInfo = realArticleList[i];
             final coverUrl = articleInfo['cover'];
             final articleCover = ArticleUtils.getCoverUrl(coverUrl);
-            return Card(
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Image.network(
-                      articleCover,
-                      fit: BoxFit.fitHeight,
-                      height: 200,
-                    ),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) => ArticleDetailPage(articleInfo['id']),
                   ),
-                  ListTile(
-                    title: Text(articleInfo['title']),
-                    subtitle: Text(articleInfo['desc']),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (ctx) => ArticleDetailPage(articleInfo['id']),
+                );
+              },
+              child: Card(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Image.network(
+                            articleCover,
+                            fit: BoxFit.cover,
+                            height: 200,
+                          ),
                         ),
-                      );
-                    },
-                  ),
-                ],
+                      ],
+                    ),
+                    ListTile(
+                      title: Text(articleInfo['title']),
+                      subtitle: Text(articleInfo['desc']),
+                    ),
+                  ],
+                ),
               ),
             );
           }

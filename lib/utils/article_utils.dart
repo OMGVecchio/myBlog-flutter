@@ -5,7 +5,7 @@ class ArticleUtils {
 
   static String getCoverUrl(String coverUrl) {
     RegExp exp = RegExp('^(https?:)?//');
-    String articleCover = coverUrl != null
+    String articleCover = (coverUrl != null && coverUrl != '')
       ? exp.hasMatch(coverUrl)
         ? coverUrl
         : (ArticleUtils.host + coverUrl)

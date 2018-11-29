@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // 底部 Tabbar 映射到的所有 Page
-import 'article_list.dart';
+import 'article/article_list.dart';
 import 'curriculum_vitae.dart';
 
 class PageEntry extends StatelessWidget {
