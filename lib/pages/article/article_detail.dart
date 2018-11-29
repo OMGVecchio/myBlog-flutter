@@ -8,7 +8,9 @@ Dio dio = Dio();
 
 class ArticleDetailPage extends StatelessWidget {
   final articleId;
+
   ArticleDetailPage(this.articleId);
+
   @override
   Widget build(BuildContext context) {
     return ArticleDetail(this.articleId);
@@ -17,7 +19,9 @@ class ArticleDetailPage extends StatelessWidget {
 
 class ArticleDetail extends StatefulWidget {
   final articleId;
+
   ArticleDetail(this.articleId);
+
   @override
   createState() => ArticleDetailState(this.articleId);
 }
@@ -25,9 +29,11 @@ class ArticleDetail extends StatefulWidget {
 class ArticleDetailState extends State {
   final articleId;
   Map articleDetail;
+  
   ArticleDetailState(this.articleId) {
     this._fetchArticleDetail();
   }
+
   void _fetchArticleDetail() async {
     Response res = await dio.get('${ArticleUtils.host}/api/article/${this.articleId}');
     // Response res = await dio.get('${ArticleUtils.host}/api/article/f24be360-9bac-11e8-af01-d933a8a0c468');
@@ -35,6 +41,7 @@ class ArticleDetailState extends State {
       articleDetail = res.data['data'];
     });
   }
+  
   @override
   Widget build(BuildContext context) {
     if (articleDetail == null) {

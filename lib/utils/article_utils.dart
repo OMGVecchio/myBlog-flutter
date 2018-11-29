@@ -1,5 +1,5 @@
 class ArticleUtils {
-  static const String host = 'https://vecchio.top';
+  static const String host = 'http://127.0.0.1:3000';
 
   static const String defaultCoverUrl = '${ArticleUtils.host}/images/cover/wallhaven-851_1537242430407.jpg';
 

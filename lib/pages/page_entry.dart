@@ -23,6 +23,7 @@ class PageEntryState extends State {
     null,
     CurriculumVitaePage()
   ];
+
   Widget getBottomNav(int index) {
     return BottomNavigationBar(
       currentIndex: index,
@@ -47,6 +48,7 @@ class PageEntryState extends State {
       ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
