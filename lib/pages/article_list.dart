@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import 'article_detail.dart';
-import '../components/bottom_nav.dart';
 import '../utils/article_utils.dart';
 
 Dio dio = Dio();
@@ -14,7 +13,6 @@ class ArticleListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('文章列表'),
       ),
-      bottomNavigationBar: SelfBottomNav(index: 0),
       body: ArticleList(),
     );
   }
@@ -60,7 +58,6 @@ class ArticleListState extends State {
                   title: Text(articleInfo['title']),
                   subtitle: Text(articleInfo['desc']),
                   onTap: () {
-                    // Navigator.pushNamed(context, '/article');
                     Navigator.push(
                       context,
                       MaterialPageRoute(

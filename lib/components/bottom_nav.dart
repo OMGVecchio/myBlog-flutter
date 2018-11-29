@@ -1,3 +1,4 @@
+// 已废弃，此组件要单独加在每个 Page 下，会在切换页面时重新渲染底部 Tabbar，体验不友好
 import 'package:flutter/material.dart';
 
 class SelfBottomNav extends StatelessWidget {
@@ -11,15 +12,12 @@ class SelfBottomNav extends StatelessWidget {
         switch (index) {
           case 1:
             Navigator.pushReplacementNamed(context, '/');
-            // Navigator.pushNamed(context, '/');
             break;
           case 2:
             Navigator.pushReplacementNamed(context, '/cv');
-            // Navigator.pushNamed(context, '/cv');
             break;
           default:
             Navigator.pushReplacementNamed(context, '/');
-            // Navigator.pushNamed(context, '/');
         }
       },
       items: <BottomNavigationBarItem>[
