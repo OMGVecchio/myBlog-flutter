@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
 
+const FULL_STAR = 5;
+
 class CurriculumVitaePage extends StatelessWidget {
   List<Widget> _buildBodySkill() {
-    // return [
-    //   ListTile(
-    //     title: Text('Vue/Nuxt/Weex'),
-    //   ),
-    //   ListTile(
-    //     title: Text('React/Next/ReactNative'),
-    //   ),
-    //   ListTile(
-    //     title: Text('Flutter'),
-    //   ),
-    //   ListTile(
-    //     title: Text('Nodejs'),
-    //   ),
-    //   ListTile(
-    //     title: Text('Webpack'),
-    //   ),
-    // ];
     return [
       SkillListWidget()
     ];
@@ -42,7 +27,11 @@ class CurriculumVitaePage extends StatelessWidget {
                             // image: DecorationImage(
                             //   image: AssetImage('assets/images/cats.gif'),
                             //   fit: BoxFit.fitWidth,
-                            // )
+                            // ),
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/one_piece_poster.jpg'),
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                         Container(
@@ -139,29 +128,113 @@ class SkillListWidget extends StatefulWidget {
 
 class SkillListState extends State {
   final List<Map> skillList = [{
-    'title': 'Vue/Nuxt/Weex',
-    'isExpanded': false,
+    'title': 'Skill',
+    'isExpanded': true,
+    'type': 1,
+    'body': [{
+      'title': 'Vue/Nuxt/Weex',
+      'star': 4,
+    }, {
+      'title': 'React/Next/ReactNative',
+      'star': 4,
+    }, {
+      'title': 'Flutter',
+      'star': 4,
+    }, {
+      'title': 'Nodejs',
+      'star': 4,
+    }, {
+      'title': 'Webpack',
+      'star': 4,
+    }],
   }, {
-    'title': 'React/Next/ReactNative',
+    'title': 'Experience',
     'isExpanded': false,
+    'type': 2,
+    'body': [{
+      'title': '2016~，ZBJ'
+    }]
   }, {
-    'title': 'Flutter',
+    'title': 'Education',
     'isExpanded': false,
-  }, {
-    'title': 'Nodejs',
-    'isExpanded': false,
-  }, {
-    'title': 'Webpack',
-    'isExpanded': false,
+    'type': 3,
   }];
 
-  List<ExpansionPanel> _buildSkillList() {
+  List<Widget> _buildSkillItem(title, star) {
+    List<Widget> itemContent = [
+      Text(title)
+    ];
+    if (star != null) {
+      List<Widget> starList = List<Widget>.generate(FULL_STAR, (index) {
+        if (index < star) {
+          return Icon(Icons.star);
+        }
+        return Icon(Icons.star_border);
+      });
+      itemContent.add(Container(
+        child: Row(
+          children: starList,
+        ),
+      ));
+    }
+    return itemContent;
+  }
+
+  List<Widget> _buildBodyList(int type, List body) {
+    List<Widget> bodyItem = <Widget>[
+      ListTile(
+        title: Text('暂无信息'),
+      ),
+    ];
+    if (body == null) {
+      return bodyItem;
+    }
+    switch(type) {
+      // 技能
+      case 1:
+        bodyItem = body.map((bodyItem) {
+          return Container(
+            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: _buildSkillItem(bodyItem['title'], bodyItem['star']),
+            ),
+          );
+        }).toList();
+        break;
+        // 经验
+        case 2:
+          bodyItem = [Text('经验')];
+          break;
+        // 学历
+        default:
+          bodyItem = [Text('学历')];
+    }
+    return bodyItem;
+  }
+
+  List<ExpansionPanel> _buildBody() {
     return skillList.map((skill) {
       return ExpansionPanel(
         headerBuilder: (context, isExpanded) {
-          return Text(skill['title']);
+          return Container(
+            padding: EdgeInsets.only(left: 20),
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.keyboard_capslock),
+                Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(skill['title']),
+                ),
+              ],
+            ),
+          );
         },
-        body: Text(skill['title']),
+        body: Container(
+          child: Column(
+            children: _buildBodyList(skill['type'], skill['body']),
+          ),
+        ),
         isExpanded: skill['isExpanded'],
       );
     }).toList();
@@ -175,7 +248,7 @@ class SkillListState extends State {
           skillList[index]['isExpanded'] = !isExpanded;
         });
       },
-      children: _buildSkillList(),
+      children: _buildBody(),
     );
   }
 }
