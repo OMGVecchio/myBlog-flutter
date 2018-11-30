@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 const FULL_STAR = 5;
 
 class CurriculumVitaePage extends StatelessWidget {
-  List<Widget> _buildBodySkill() {
-    return [
-      SkillListWidget()
-    ];
+  List<Widget> _buildBodyCardList() {
+    return [ SkillListWidget() ];
   }
 
   Widget _buildBody() {
@@ -56,7 +54,7 @@ class CurriculumVitaePage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 40),
                 padding: EdgeInsets.all(20),
                 child: Column(
-                  children: _buildBodySkill(),
+                  children: _buildBodyCardList(),
                 ),
               ),
             ),
@@ -152,18 +150,22 @@ class SkillListState extends State {
     'isExpanded': false,
     'type': 2,
     'body': [{
-      'title': '2016~，ZBJ'
+      'period': '2016 ~ 今',
+      'org': '重庆猪八戒网络有限公司',
+      'desc': '工作期间，在八戒客、猪妈、八戒智投以及点击无忧中承担了主要研发工作，此外还开发了类商城的小程序应用；其中八戒客主要偏 H5 及公众号移动端开发；猪妈是以 Vue 为核心的内部数据管理系统；点击无忧则是以 Next 为基础的投放系统；八戒智投是基于 DMP 的 DSP 广告平台；此外，还参与了其它众多项目的迭代，大量使用 Node、Nuxt 及 Webpack。'
     }]
   }, {
     'title': 'Education',
     'isExpanded': false,
     'type': 3,
+    'body': [{
+      'period': '2012 ~ 2016',
+      'school': 'CQUPT Bachelor Degree',
+    }]
   }];
 
   List<Widget> _buildSkillItem(title, star) {
-    List<Widget> itemContent = [
-      Text(title)
-    ];
+    List<Widget> itemContent = [ Text(title) ];
     if (star != null) {
       List<Widget> starList = List<Widget>.generate(FULL_STAR, (index) {
         if (index < star) {
@@ -192,23 +194,28 @@ class SkillListState extends State {
     switch(type) {
       // 技能
       case 1:
-        bodyItem = body.map((bodyItem) {
-          return Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _buildSkillItem(bodyItem['title'], bodyItem['star']),
-            ),
-          );
-        }).toList();
+        bodyItem = body.map((item) => Container(
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: _buildSkillItem(item['title'], item['star']),
+          ),
+        )).toList();
         break;
-        // 经验
-        case 2:
-          bodyItem = [Text('经验')];
-          break;
-        // 学历
-        default:
-          bodyItem = [Text('学历')];
+      // 经验
+      case 2:
+        bodyItem = body.map((item) => ListTile(
+          leading: Text(item['period']),
+          title: Text(item['org']),
+          subtitle: Text(item['desc']),
+        )).toList();
+        break;
+      // 学历
+      default:
+        bodyItem = body.map((item) => ListTile(
+          leading: Text(item['period']),
+          title: Text(item['school']),
+        )).toList();
     }
     return bodyItem;
   }
