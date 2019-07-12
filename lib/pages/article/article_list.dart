@@ -6,23 +6,16 @@ import '../../utils/article_utils.dart';
 
 Dio dio = Dio();
 
-class ArticleListPage extends StatelessWidget {
+class ArticleListPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return ArticleList();
-  }
+  createState() => _ArticleListState();
 }
 
-class ArticleList extends StatefulWidget {
-  @override
-  createState() => ArticleListState();
-}
-
-class ArticleListState extends State {
+class _ArticleListState extends State {
   final articleList = [];
   final articleTags = [];
   var realArticleList = [];
-  ArticleListState() {
+  _ArticleListState() {
     this._fetchArticleData();
   }
   void _fetchArticleData() async {

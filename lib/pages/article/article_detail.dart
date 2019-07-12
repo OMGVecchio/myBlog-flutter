@@ -6,31 +6,20 @@ import '../../utils/article_utils.dart';
 
 Dio dio = Dio();
 
-class ArticleDetailPage extends StatelessWidget {
+class ArticleDetailPage extends StatefulWidget {
   final articleId;
 
   ArticleDetailPage(this.articleId);
 
   @override
-  Widget build(BuildContext context) {
-    return ArticleDetail(this.articleId);
-  }
+  createState() => _ArticleDetailState(this.articleId);
 }
 
-class ArticleDetail extends StatefulWidget {
-  final articleId;
-
-  ArticleDetail(this.articleId);
-
-  @override
-  createState() => ArticleDetailState(this.articleId);
-}
-
-class ArticleDetailState extends State {
+class _ArticleDetailState extends State {
   final articleId;
   Map articleDetail;
   
-  ArticleDetailState(this.articleId) {
+  _ArticleDetailState(this.articleId) {
     this._fetchArticleDetail();
   }
 

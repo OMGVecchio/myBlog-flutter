@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-const FULL_STAR = 5;
+const int FULL_STAR = 5;
 
 class CurriculumVitaePage extends StatelessWidget {
   List<Widget> _buildBodyCardList() {
-    return [ SkillListWidget() ];
+    return [ _SkillListWidget() ];
   }
 
   Widget _buildBody() {
@@ -119,12 +119,12 @@ class CurriculumVitaePage extends StatelessWidget {
   }
 }
 
-class SkillListWidget extends StatefulWidget {
+class _SkillListWidget extends StatefulWidget {
   @override
-  createState() => SkillListState();
+  createState() => _SkillListState();
 }
 
-class SkillListState extends State {
+class _SkillListState extends State {
   final List<Map> skillList = [{
     'title': 'Skill',
     'isExpanded': true,
